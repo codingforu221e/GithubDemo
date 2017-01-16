@@ -1,0 +1,135 @@
+/*
+ * Git cheatsheet.
+ * Author: Renato Montes
+ * Date: 2016-10-20
+ * Version: 2.0
+ */
+
+              /* Essential commands */
+//see status of local repository (use often)
+git status
+
+//add every file to the stage
+git add *
+//can also use:
+git add .
+
+//commit "staged" (that is, added) files
+git commit -m "did this and that"
+
+//pull from online repository (might see conflicts)
+//git pull <remote> <branch>
+git pull origin master
+
+//push to online repository (there will be errors if you didn't pull
+//  and fix merge conflicts)
+//GOOD PRACTICE: "git pull" before doing a push, might see conflicts
+//git push <remote> <branch>
+git push origin master
+
+//see local branches (current branch marked with an asterisk)
+git branch
+
+//create new branch (but don't load that branch)
+//git branch <name_of_new_branch>
+git branch coolfeature
+
+//load branch (there must not be uncommitted changes for this)
+//git checkout <branch>
+git checkout coolfeature
+
+
+
+           /* Basic commands */
+//see differences between two local branches
+//git diff <some_branch> <another_branch>
+git diff coolfeature master
+
+//see differences between local branch and remote
+//git diff <local_branch> <remote>/<branch>
+git fetch
+git diff master origin/master
+//important to fetch, so execute both
+
+//merge current local branch with another local branch
+//git merge <other_local_branch>
+git merge coolfeature
+//imagine current branch is "master", this would bring in the contents
+//  of branch "coolfeature", likely creating merge conflicts
+
+//initiate git repository in current folder
+git init
+
+//clone an online repository as subfolder into current directory
+//git clone <repo_url>
+git clone https://github.com/github-user/coolproject.git
+
+//see log
+git log
+
+//discard all current uncommitted changes and go back to
+//  the last commit
+git stash -u
+//can also use:
+git clean -f
+
+//discard current commit and go back to previous commit
+//git reset --hard <hash_of_previous_commit>
+git reset --hard d74b654
+//it's fine to use the first seven characters of the commit's hash
+//  the complete hash in this case was:
+//  d74b65464eb0b4143838502c6ed800de95a6bb43
+
+//see who to blame for a file
+//git blame <file>
+git blame filename.txt
+
+//add a remote repository with a name
+//git remote add <name_of_remote> <url>
+git remote add origin https://github.com/github-user/coolproject.git
+
+//see current remotes
+git remote -v
+
+//see specific remote
+//git config --get remote.<remote>.url
+git config --get remote.origin.url
+
+//get help with a command
+//git help <command>
+git help push
+
+
+
+             /* More git */
+//merge two other local branches into current branch
+//git merge <other_local_branch_1> <other_local_branch_2>
+git merge coolfeatureX coolfeatureY
+
+//see log with graph
+git log --graph
+//might need to press "q" or ":q" (without quotes) to exit
+
+//see compressed log
+git log --pretty=oneline
+//might need to enter ":q" or just "q" (without quotes) to exit from log
+
+//see decorated log
+git log --graph --oneline --decorate --all
+
+//see commits of a specific author
+//git log --author=<username>
+git log --author=renato-montes
+
+
+
+        /* Dangerous stuff, BAD PRACTICE */
+
+//force a push to online repository, overwriting whatever exists
+//git push <remote> <branch> -f
+git push origin master -f
+
+
+
+
+
